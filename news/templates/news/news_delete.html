@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Delete publication{% endblock %}
+
+{% block content %}
+<div class="container d-flex flex-column justify-content-center w-25 mt-5 align-content-center">
+    <h1 class="news-h1">Delete publication.</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger w-50 mr-5" type="submit">Delete publication</button>
+    </form>
+
+</div>
+{% endblock %}
