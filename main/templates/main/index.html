@@ -3,8 +3,18 @@
 {% block title %}Main page{% endblock %}
 
 {% block content %}
-<div class="container d-flex flex-row justify-content-center m-2">
+<div class="container d-flex flex-row justify-content-center ml-4">
     <h1>Index file</h1>
+    <br />
+    {% if messages %}
+        {% for message in messages %}
+            <div class="register-success">
+                <p class="heading-reg">
+                    {{ message }}
+                </p>
+            </div>
+        {%endfor%}
+    {%endif%} 
 </div>
 
 

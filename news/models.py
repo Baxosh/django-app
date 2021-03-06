@@ -15,3 +15,15 @@ class Articles(models.Model):
     class Meta:
         verbose_name = 'New'
         verbose_name_plural = 'News'
+
+class Comments(models.Model):
+    # user = models.ForeignKey('User', related_name='user', on_delete=models.CASCADE)
+    text = models.TextField('Comment')
+
+    def __str__(self):
+        return self.text
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
+    
+    
