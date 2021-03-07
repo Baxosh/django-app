@@ -97,3 +97,30 @@ form {
     line-height: 3;
     color: #000;
 }
+
+.user_content {
+    width: 80px;
+    height: 25px;
+    position: absolute;
+    top: 15px;
+    right: 0;
+    text-align: center;
+    background-color: aliceblue;
+    border-radius: 5% 0 0 5%;
+}
+
+.user_content a {
+    color: #444;
+}
+
+.comment_place {
+    background-color: aliceblue;
+    -webkit-box-shadow: 3px 3px 10px 3px #bdbdbd;
+    box-shadow: 3px 3px 10px 3px #bdbdbd;
+    border: none;
+    border-radius: 5px;
+    width: 70%;
+    margin-left: 240px;
+    text-indent: 5%;
+    line-height: 1;
+}

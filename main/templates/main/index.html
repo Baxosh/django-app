@@ -6,6 +6,13 @@
 <div class="container d-flex flex-row justify-content-center ml-4">
     <h1>Index file</h1>
     <br />
+    <div class="user_content">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
     {% if messages %}
         {% for message in messages %}
             <div class="register-success">
