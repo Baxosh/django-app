@@ -1,5 +1,23 @@
-<form method="POST">
+{% extends 'main/layout.html'%}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-content-center flex-row">
+<form method="POST" class="form-conrol w-75">
     {% csrf_token %}
     {{form}}
     <button type="submit">Login</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    {% if form.errors %}
+    <p>Maybe you haven't got account ! Register</p>
+    <div class="registration w-25 d-flex justify-content-center align-content-center m-auto">
+        <a href="{% url 'register' %}">Registration</a>
+    </div>
+    {% endif %}
 </form>
+</div>
+{% endblock %}

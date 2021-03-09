@@ -114,13 +114,23 @@ form {
 }
 
 .comment_place {
+    display: flex;
+    justify-content: flex_start;
     background-color: aliceblue;
-    -webkit-box-shadow: 3px 3px 10px 3px #bdbdbd;
-    box-shadow: 3px 3px 10px 3px #bdbdbd;
     border: none;
     border-radius: 5px;
     width: 70%;
     margin-left: 240px;
     text-indent: 5%;
     line-height: 1;
+}
+
+.registration {
+    background-color: rgb(148, 56, 240);
+    border-radius: 5px;
+}
+
+.registration a {
+    color: #fff!important;
+
 }

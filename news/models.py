@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 class Articles(models.Model):
     title = models.CharField('Name', max_length=50)

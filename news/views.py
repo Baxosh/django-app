@@ -1,20 +1,28 @@
 from django.shortcuts import render, redirect
 
+from django.contrib.auth.models import User
+
 from .models import Articles, Comments
 from .forms import ArticlesForm
 
 
 def news_detail(request, pk):
-    article = Articles.objects.get(id=pk)
-    form = ArticlesForm(request.POST or None, instance=article)
-    incoming_comments = request.POST.get('comment')
-    comments = Comments(comment_text=incoming_comments)
+    article            = Articles.objects.get(id=pk)
+    commentsModel      = Comments.objects.all()
+    form               = ArticlesForm(request.POST or None, instance=article)
+    incoming_comments  = request.POST.get('comment')
+    comments           = Comments(comment_text=incoming_comments)
+    users              = request.user.username
+    
+
+    print(comments)
+
     if request.method == "POST":
         comments.save()
         if form.is_valid():
             form.save()
             return redirect("/news")
-    return render(request, "news/details_view.html", {"article": article, "form": form, 'comments': comments})
+    return render(request, "news/details_view.html", {"article": article, "form": form, 'comments': commentsModel, 'users': users})
 
 
 def news_home(request):
