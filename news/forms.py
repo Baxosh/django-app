@@ -27,3 +27,10 @@ class ArticlesForm(ModelForm):
 #     class Meta:
 #         model = Comments
 #         fields = ("comment_text",)
+
+#         widgets = {
+#             'comment_text': TextInput(attrs={
+#                 'class': 'form-control',
+#                 "placeholder": 'comments'
+#             })
+#         }

@@ -8,32 +8,30 @@
     <h1 class="card-title">{{article.title}}</h1>
     <p>{{article.date}}</p>
     <p class="card-text">{{article.full_text}}</p>
+    {% if request.user.is_superuser %}
     <div class="">
         <a href="{% url 'news_delete' article.id %}" class="btn btn-danger w-25">Delete</a>
         <a href="{% url 'news_update' article.id %}" class="btn btn-info w-25">Edit</a>
     </div>
+    {% endif %}
 </div>
 <div class="container d-flex justify-content-start">
     <form method="post">
         {% csrf_token %}
         <p class="input_comment w-75">
-            <input type="text" class="form-control" name='comment' placeholder="Here your comments">
+            <input type="text" class="form-control" name='comment' placeholder="Here your comments" />
         </p><br>
-        <button class="btn btn-success ml-5" type="submit">Add comment</button><br><br>
+        <a href="" class="btn btn-success ml-5" type="submit">Add comment</a><br><br>
     </form>
 </div>
 
 
-<!-- {% for user in users %} -->
-    {% for comment in comments %}
-        {% if comments is not None %}
-            <div class="container comment_place">
-                <p class="m-1 p-2 badge badge-primary rounded-circle">{{users}}</p>
-                <p class="m-1 p-2 w-100">{{comment}}</p>
-            </div><br>
-        {% endif %}
-    {% endfor %}
-<!-- {% endfor %} -->
+{% for comment in commentsModel %}
+<div class="container comment_place">
+    <p class="m-1 p-2 badge badge-primary rounded-circle">{{comment.author}}</p>
+    <p class="m-1 p-2 w-100">{{comment}}</p>
+</div><br>
+{% endfor %}
 
 
 

@@ -1,7 +1,8 @@
 from django.db import models
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 class Articles(models.Model):
+    author = models.ForeignKey(User, verbose_name='User', on_delete=models.CASCADE)
     title = models.CharField('Name', max_length=50)
     anons = models.CharField('Anons', max_length=250)
     full_text = models.TextField('Article')
@@ -17,11 +18,11 @@ class Articles(models.Model):
         verbose_name = 'New'
         verbose_name_plural = 'News'
 
-
 class Comments(models.Model):
-    # author = models.OneToOneField(User, verbose_name='User', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, verbose_name='User', on_delete=models.CASCADE)
     comment_text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    article = models.ForeignKey(Articles, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('created_at',)

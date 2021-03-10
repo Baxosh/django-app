@@ -7,22 +7,24 @@ from .forms import ArticlesForm
 
 
 def news_detail(request, pk):
-    article            = Articles.objects.get(id=pk)
-    commentsModel      = Comments.objects.all()
-    form               = ArticlesForm(request.POST or None, instance=article)
-    incoming_comments  = request.POST.get('comment')
-    comments           = Comments(comment_text=incoming_comments)
-    users              = request.user.username
+    article = Articles.objects.get(id=pk)
+    comments = Comments.objects.filter(article_id=pk)
+    form = ArticlesForm(request.POST or None, instance=article)
     
 
-    print(comments)
 
     if request.method == "POST":
-        comments.save()
-        if form.is_valid():
-            form.save()
-            return redirect("/news")
-    return render(request, "news/details_view.html", {"article": article, "form": form, 'comments': commentsModel, 'users': users})
+        comments.create(
+            comment_text=request.POST.get("comment"), author=request.user, article_id=pk
+        )
+        # return redirect('/news')
+        
+
+    return render(
+        request,
+        "news/details_view.html",
+        {"article": article, "form": form, "commentsModel": comments},
+    )
 
 
 def news_home(request):
@@ -50,12 +52,15 @@ def news_update(request, pk):
     return render(request, "news/news_update.html", data)
 
 
-def create(request):
+def news_create(request):
+
     error = ""
     if request.method == "POST":
         form = ArticlesForm(request.POST)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
             return redirect("/news")
         else:
             error = "Form has got mistake"
@@ -63,4 +68,4 @@ def create(request):
     form = ArticlesForm()
 
     data = {"form": form, "error": error}
-    return render(request, "news/create.html", data)
+    return render(request, "news/news_create.html", data)
