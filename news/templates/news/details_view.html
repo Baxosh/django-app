@@ -8,7 +8,7 @@
     <h1 class="card-title">{{article.title}}</h1>
     <p>{{article.date}}</p>
     <p class="card-text">{{article.full_text}}</p>
-    {% if request.user.is_superuser %}
+    {% if request.user.is_superuser or request.user == article.author %}
     <div class="">
         <a href="{% url 'news_delete' article.id %}" class="btn btn-danger w-25">Delete</a>
         <a href="{% url 'news_update' article.id %}" class="btn btn-info w-25">Edit</a>
@@ -16,12 +16,14 @@
     {% endif %}
 </div>
 <div class="container d-flex justify-content-start">
-    <form method="post">
+    <form method="POST">
         {% csrf_token %}
         <p class="input_comment w-75">
-            <input type="text" class="form-control" name='comment' placeholder="Here your comments" />
+            <!-- <input type="text" class="form-control" name='comment' 
+                placeholder="Here your comments" /> -->
+            {{form.comment_text}}
         </p><br>
-        <a href="" class="btn btn-success ml-5" type="submit">Add comment</a><br><br>
+        <button class="btn btn-success ml-5" type="submit">Add comment</button><br><br>
     </form>
 </div>
 

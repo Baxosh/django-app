@@ -3,22 +3,24 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
 from .models import Articles, Comments
-from .forms import ArticlesForm
+from .forms import ArticlesForm, CommentsForm
 
 
 def news_detail(request, pk):
     article = Articles.objects.get(id=pk)
     comments = Comments.objects.filter(article_id=pk)
-    form = ArticlesForm(request.POST or None, instance=article)
+    form = CommentsForm(request.POST or None)
     
-
+    print(request.user)
 
     if request.method == "POST":
-        comments.create(
-            comment_text=request.POST.get("comment"), author=request.user, article_id=pk
-        )
-        # return redirect('/news')
-        
+        # print(article.author)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.article_id = pk
+            post.save()
+            return redirect(f"/news/{pk}")
 
     return render(
         request,

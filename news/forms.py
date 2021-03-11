@@ -23,14 +23,15 @@ class ArticlesForm(ModelForm):
             }),
         }
 
-# class CommentsForm(ModelForm):
-#     class Meta:
-#         model = Comments
-#         fields = ("comment_text",)
+class CommentsForm(ModelForm):
+    class Meta:
+        model = Comments
+        fields = ("comment_text",)
 
-#         widgets = {
-#             'comment_text': TextInput(attrs={
-#                 'class': 'form-control',
-#                 "placeholder": 'comments'
-#             })
-#         }
+        widgets = {
+            "comment_text": TextInput(attrs={
+                "class": "form-control",
+                "name": "comment", 
+                "placeholder": "Here your comments"
+            })
+        }

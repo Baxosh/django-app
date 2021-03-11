@@ -6,7 +6,7 @@
 <div class="container d-flex justify-content-center align-content-center flex-row">
 
     <h1 class="position-absolute top-0 left-50">Hi, news create</h1>
-    <form method="post" class="my-5 justify-items-center" action="{% url 'news_create' %}">
+    <form method="POST" class="my-5 justify-items-center" action="{% url 'news_create' %}">
         {% csrf_token %}
         {{form.title}}<br>
         {{form.anons}}<br>
