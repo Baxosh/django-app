@@ -28,10 +28,16 @@
 </div>
 
 
-{% for comment in commentsModel %}
+{% for comment in comments %}
 <div class="container comment_place">
     <p class="m-1 p-2 badge badge-primary rounded-circle">{{comment.author}}</p>
     <p class="m-1 p-2 w-100">{{comment}}</p>
+    {% if request.user.is_superuser or request.user == comment.author %}
+        <div class="d-flex m-2 align-self-center">
+            <a href="{% url 'delete' comment.id %}" class="badge badge-danger mr-2">Delete</a>
+            <a href="{% url 'comment_update' comment.id %}" class="badge badge-info">Edit</a>
+        </div>
+    {% endif %}
 </div><br>
 {% endfor %}
 

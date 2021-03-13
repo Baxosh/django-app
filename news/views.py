@@ -10,8 +10,6 @@ def news_detail(request, pk):
     article = Articles.objects.get(id=pk)
     comments = Comments.objects.filter(article_id=pk)
     form = CommentsForm(request.POST or None)
-    
-    print(request.user)
 
     if request.method == "POST":
         # print(article.author)
@@ -25,8 +23,28 @@ def news_detail(request, pk):
     return render(
         request,
         "news/details_view.html",
-        {"article": article, "form": form, "commentsModel": comments},
+        {"article": article, "form": form, "comments": comments},
     )
+
+
+def comment_update(request, id):
+    # article = Articles.objects.get(id=pk)
+    comment = Comments.objects.get(id=id)
+    form = CommentsForm(request.POST or None, instance=comment)
+    if request.method == "POST":
+        form.save()
+        comment.save()
+        return redirect(f"/news/edit/{id}")
+
+    return render(
+        request, "news/comment_update.html", {"comment": comment, "form": form}
+    )
+
+
+def delete(request, id):
+    comment = Comments.objects.get(id=id)
+    comment.delete()
+    return redirect("/news/")
 
 
 def news_home(request):

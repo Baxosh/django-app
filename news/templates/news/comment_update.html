@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% block title %} News Update {% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-content-center flex-row">
+
+    <h1 class="position-absolute top-0 left-50">Hi, news create</h1>
+    <form method="post" class="my-5 justify-items-center" action="{% url 'comment_update' comment.id %}">
+        {% csrf_token %}
+        {{form.comment_text}}<br>
+        <button class="btn btn-warning" type="submit">Update</button>
+    </form>
+</div>
+{% endblock %}
